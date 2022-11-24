@@ -8,6 +8,9 @@ import { messageContext } from "../../pages/message-board"
 
 const Thread = () => {
   const data = useContext(messageContext)
+  const parentMessage = data?.filter(
+    mssg => mssg._id == window.location.pathname.split("/").pop()
+  )
   const navigate = useNavigate()
   const params = useParams()
   return (
@@ -24,7 +27,7 @@ const Thread = () => {
         </span>
       </ThreadBarHeader>
       <ThreadBarContent>
-        <MessageBoard messages={data} />
+        <MessageBoard messages={parentMessage} />
       </ThreadBarContent>
     </ThreadBar>
   )
