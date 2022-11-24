@@ -1,11 +1,13 @@
-import React from "react"
+import React, { useContext } from "react"
 import { FiX } from "react-icons/fi"
-import { useNavigate, useParams } from "react-router"
+import { useNavigate, useParams, t } from "react-router"
 import { Link } from "react-router-dom"
-
+import { MessageBoard, getSampleMessages } from "@zuri/ui"
 import { ThreadBar, ThreadBarHeader, ThreadBarContent } from "./ThreadBar.style"
+import { messageContext } from "../../pages/message-board"
 
 const Thread = () => {
+  const data = useContext(messageContext)
   const navigate = useNavigate()
   const params = useParams()
   return (
@@ -21,7 +23,9 @@ const Thread = () => {
           </Link>
         </span>
       </ThreadBarHeader>
-      <ThreadBarContent>{/* <MessageCard /> */}</ThreadBarContent>
+      <ThreadBarContent>
+        <MessageBoard messages={data} />
+      </ThreadBarContent>
     </ThreadBar>
   )
 }
