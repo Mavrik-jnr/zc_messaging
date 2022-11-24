@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import { useNavigate, useParams, Outlet } from "react-router-dom"
 import { Helmet } from "react-helmet"
 import { MessageBoard, MessageRoomViewHeader } from "@zuri/ui"
@@ -15,7 +15,7 @@ import {
 } from "../../redux/services/messages.js"
 import { useGetRoomsAvailableToUserQuery } from "../../redux/services/rooms"
 import generatePageTitle from "../../utils/generatePageTitle"
-
+export const messageContext = createContext()
 const MessagingBoard = () => {
   const { roomId } = useParams()
   const navigateTo = useNavigate()
@@ -236,6 +236,7 @@ const MessagingBoard = () => {
               onReact={reactHandler}
               onSendAttachedFile={SendAttachedFileHandler}
               currentUserId={authUser?.user_id}
+              height={"100vh"}
             />
           </div>
           {/* <TypingNotice>Omo Jesu is typing</TypingNotice> */}
@@ -245,7 +246,9 @@ const MessagingBoard = () => {
       Right sidebar like thread, profile and co
       ... All routed in InMessageRoute component
     */}
-        <Outlet />
+        <messageContext.Provider value={roomMessages}>
+          <Outlet />
+        </messageContext.Provider>
       </Container>
     </>
   ) : null
