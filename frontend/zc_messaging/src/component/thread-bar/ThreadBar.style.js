@@ -1,7 +1,12 @@
 import { RightAsideWrapper } from "../../pages/message-board/MessageBoard.style"
 import styled from "styled-components"
 
-export const ThreadBar = styled(RightAsideWrapper)``
+export const ThreadBar = styled(RightAsideWrapper)`
+display: flex;
+  flex-direction: column;
+  margin-top: 48px;
+  z-index: 1000;
+ `
 
 export const ThreadBarHeader = styled.div`
   display: flex;
@@ -10,6 +15,7 @@ export const ThreadBarHeader = styled.div`
   background: #00b87c;
   align-items: center;
   justify-content: space-between;
+  color: black;
 
   & > span {
     display: flex;
@@ -44,7 +50,9 @@ export const ThreadBarHeader = styled.div`
 
 export const ThreadBarContent = styled.div`
   max-height: calc(100vh - 44px);
-  height: 400px;
-  margin-right: 1rem;
+  /* height: 400px;
+  margin-right: 1rem; */
   background: white;
+  overflow-y: auto;
+  overflow-x: none;
 `
