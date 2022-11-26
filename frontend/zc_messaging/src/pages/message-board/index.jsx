@@ -225,8 +225,8 @@ const MessagingBoard = () => {
       <Helmet>
         <title>{pageTitle}</title>
       </Helmet>
-      <MessageRoomViewHeader name={`#${roomName}`} />
       <Container>
+        <MessageRoomViewHeader name={`#${roomName}`} />
         <MessagingArea>
           <div style={{ height: "calc(100% - 29px)" }}>
             <MessageBoard
@@ -239,6 +239,7 @@ const MessagingBoard = () => {
               height={"92vh"}
             />
           </div>
+
           {/* <TypingNotice>Omo Jesu is typing</TypingNotice> */}
         </MessagingArea>
 
