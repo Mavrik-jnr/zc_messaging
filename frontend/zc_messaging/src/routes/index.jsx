@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom"
 import CommentingBoard from "../component/CommentingBoard"
 import { ThreadBar, UserProfileBar, ChannelDetails } from "../component"
 import { ChannelBrowser, DmBrowser, MessagingBoard, Threads } from "../pages"
+import { CommentBoard } from "@zuri/ui"
 
 /**
  * Main Routing for the zc messaging plugin.
