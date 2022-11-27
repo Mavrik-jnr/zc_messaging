@@ -3,6 +3,7 @@ import { CommentBoard } from "@zuri/ui"
 import axios from "axios"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
+import { useGetRoomsAvailableToUserQuery } from "../../redux/services/rooms"
 const BASE_URL = "https://chat.zuri.chat/api/v1"
 
 // const [Messages, setMessages] = useState([])
@@ -39,7 +40,32 @@ function CommentingBoard() {
   const reactHandler = (event, emojiObject, messageId) => {
     const currentUserId = authUser?.user_id
     const newMessages = [...roomMessages]
+    const currentWorkspaceId = localStorage.getItem("currentWorkspace")
+    const { roomId } = useParams()
+    const [pageTitle, setPageTitle] = useState("")
+    const [roomName, setRoomName] = useState("unknown-thread")
 
+    const { data: roomsAvailable, isLoading: IsLoadingRoomsAvailable } =
+      useGetRoomsAvailableToUserQuery(
+        {
+          orgId: currentWorkspaceId,
+          userId: authUser.user_id
+        },
+        {
+          skip: Boolean(!authUser.user_id),
+          refetchOnMountOrArgChange: true
+        }
+      )
+
+    useEffect(() => {
+      if (roomsAvailable) {
+        const room = roomsAvailable[roomId]
+        setRoomName(room?.room_name)
+        setPageTitle(generatePageTitle(room?.room_name))
+      }
+    }, [roomId, roomsAvailable])
+
+    console.log("This is room ", roomName, page)
     // if message_id is not undefined then it's coming from already rendered emoji in message container
 
     const emoji = emojiObject.character
@@ -147,7 +173,8 @@ function CommentingBoard() {
         displayCommentBoard: true,
         onReact: { reactHandler },
         onSendAttachedFile: { SendAttachedFileHandler },
-        currentUserId: authUser?.user_id
+        currentUserId: authUser?.user_id,
+        commentBoardHeader: "general"
       }}
       //   Messages={Messages}
     />
