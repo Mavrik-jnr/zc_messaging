@@ -226,19 +226,17 @@ const MessagingBoard = () => {
         <title>{pageTitle}</title>
       </Helmet>
       <Container>
-        <MessageRoomViewHeader name={`#${roomName}`} />
         <MessagingArea>
-          <div style={{ height: "calc(100% - 29px)" }}>
-            <MessageBoard
-              isLoadingMessages={isLoadingRoomMessages}
-              messages={roomMessages || []}
-              onSendMessage={sendMessageHandler}
-              onReact={reactHandler}
-              onSendAttachedFile={SendAttachedFileHandler}
-              currentUserId={authUser?.user_id}
-              height={"92vh"}
-            />
-          </div>
+          <MessageRoomViewHeader name={`#${roomName}`} />
+          <MessageBoard
+            isLoadingMessages={isLoadingRoomMessages}
+            messages={roomMessages || []}
+            onSendMessage={sendMessageHandler}
+            onReact={reactHandler}
+            onSendAttachedFile={SendAttachedFileHandler}
+            currentUserId={authUser?.user_id}
+            height={"85vh"}
+          />
 
           {/* <TypingNotice>Omo Jesu is typing</TypingNotice> */}
         </MessagingArea>
